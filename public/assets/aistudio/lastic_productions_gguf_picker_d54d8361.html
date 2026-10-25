@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b16"><meta name="description" content="Lastic Productions — free, privacy-first local AI tools that run in your browser.">
+<title>Lastic Productions — Private AI, your way</title>
+<style>
+.catalog{display:grid;gap:10px;margin:16px 0}.model-option{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid var(--line);background:#111319;border-radius:13px;padding:13px}.model-option strong{display:block;font-size:13px}.model-option .meta{font-size:11px;color:var(--muted);margin-top:4px}.model-option .desc{font-size:12px;color:#d3d6df;margin-top:6px}.model-option button{white-space:nowrap}.model-option .left{min-width:0}
+:root{color-scheme:dark;--bg:#0d0e12;--panel:#15171e;--panel2:#1c1f28;--line:#2b2e39;--text:#f4f5f8;--muted:#a0a5b4;--accent:#c6f36b;--accentText:#10140a;--danger:#ff8585}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -25%,#292e3c 0,transparent 55%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:11px;padding:10px 13px;transition:.18s}button:hover:not(:disabled){border-color:#62697b;transform:translateY(-1px)}button:disabled{opacity:.45;cursor:not-allowed}.primary{background:var(--accent);color:var(--accentText);border-color:var(--accent);font-weight:750}.quiet{background:transparent}.danger{color:var(--danger)}input,select,textarea{background:#101218;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px;width:100%;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent)}.app{max-width:1440px;margin:auto;min-height:100vh;display:grid;grid-template-columns:280px minmax(0,1fr)}aside{border-right:1px solid var(--line);padding:22px 16px;background:#101116d9;display:flex;flex-direction:column;gap:18px}.brand{display:flex;gap:11px;align-items:center;padding:2px 8px 15px}.logo{height:36px;width:36px;border-radius:12px;background:var(--accent);color:#12150d;display:grid;place-items:center;font-weight:900;font-size:20px}.brand strong{font-size:17px;letter-spacing:-.5px}.brand small{display:block;color:var(--muted);font-size:11px}.side-label{font-size:10px;letter-spacing:1.5px;color:#777e8d;font-weight:800;padding:0 9px}.model-card{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:13px;display:grid;gap:9px}.model-card label,.field-label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}.status-line{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.dot{height:7px;width:7px;border-radius:50%;background:#737988;display:inline-block}.dot.good{background:var(--accent);box-shadow:0 0 10px #c6f36b66}.dot.bad{background:var(--danger)}.progress{height:5px;background:#2a2d37;border-radius:10px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}.side-actions{display:grid;gap:8px}.side-actions button{text-align:left}.privacy{margin-top:auto;border:1px solid var(--line);background:#14161c;border-radius:12px;padding:12px;color:var(--muted);font-size:12px}.privacy strong{color:var(--text);display:block;margin-bottom:4px}main{min-width:0;display:flex;flex-direction:column;height:100vh;height:100dvh}.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;gap:12px}.topbar h1{font-size:14px;margin:0;font-weight:650}.top-actions{display:flex;gap:8px;align-items:center}.pill{border:1px solid var(--line);border-radius:99px;padding:5px 10px;color:var(--muted);font-size:11px;white-space:nowrap}.workspace{flex:1;min-height:0;display:flex;flex-direction:column;max-width:980px;width:100%;margin:0 auto;padding:20px 24px 18px}.welcome{margin:auto auto 25px;text-align:center;max-width:620px}.spark{font-size:31px;color:var(--accent)}.welcome h2{font-size:clamp(28px,4vw,43px);line-height:1.08;letter-spacing:-1.8px;margin:14px 0}.welcome h2 em{color:var(--accent);font-style:normal}.welcome p{color:var(--muted);max-width:480px;margin:0 auto 22px}.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.chips button{font-size:12px;padding:8px 11px;color:#d7dae3}.messages{flex:1;overflow:auto;display:flex;flex-direction:column;gap:18px;padding:8px 2px 22px}.message{display:flex;gap:12px;max-width:100%;align-items:flex-start}.avatar{flex:0 0 31px;height:31px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:12px;background:#252936;color:var(--text)}.message.user .avatar{background:var(--accent);color:#111}.bubble{min-width:0;max-width:calc(100% - 42px);white-space:pre-wrap;overflow-wrap:anywhere;padding:3px 0}.message.user .bubble{background:#1b1e27;border:1px solid #2b2f3b;border-radius:14px;padding:12px 15px}.bubble p{margin:0 0 9px}.bubble p:last-child{margin-bottom:0}.message.error .bubble{color:var(--danger)}.composer-wrap{padding-top:12px;border-top:1px solid var(--line)}.composer{border:1px solid #3a3e4b;background:#15171e;border-radius:17px;padding:11px;box-shadow:0 12px 35px #0003}.composer textarea{border:0;background:transparent;resize:vertical;min-height:52px;max-height:180px;padding:7px 8px;box-shadow:none}.composer textarea:focus{border:0}.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 3px 0}.compose-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.tiny{font-size:11px;color:var(--muted)}.send{min-width:94px}.notice{font-size:11px;color:var(--muted);text-align:center;padding:9px 0 0}.typing{color:var(--muted);font-size:13px}.typing:after{content:"";animation:dots 1.2s steps(4,end) infinite}@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%,100%{content:"..."}}
+.modal-backdrop{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal-backdrop.open{display:flex}.modal{width:min(540px,100%);max-height:85vh;overflow:auto;border:1px solid var(--line);background:#171920;border-radius:18px;padding:22px;box-shadow:0 24px 80px #0008}.modal h2{margin:0 0 6px;font-size:20px}.modal p{color:var(--muted);font-size:13px}.modal .field{margin:17px 0}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.small-note{font-size:11px;color:var(--muted)}.hidden{display:none!important}.file-chip{display:inline-flex;gap:8px;align-items:center;padding:6px 9px;background:#222631;border:1px solid var(--line);border-radius:8px;font-size:12px;margin:3px}.file-chip button{padding:0;border:0;background:transparent}.model-info{font-size:11px;color:var(--muted);line-height:1.4}.download-row{display:flex;gap:8px;align-items:center}.download-row button{flex:0 0 auto}
+@media(max-width:820px){.app{grid-template-columns:1fr}aside{display:none}main{height:100dvh}.topbar{padding:0 14px;height:58px}.workspace{padding:12px 13px}.welcome{margin:auto auto 20px}.welcome h2{letter-spacing:-1px}.top-actions .pill{display:none}.composer-bottom{align-items:flex-end}.compose-tools{gap:5px}.compose-tools button{padding:8px;font-size:12px}.send{min-width:74px;padding:10px}.notice{font-size:10px}}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Lastic Productions visual identity */
+:root{--bg:#080a13;--panel:#101424;--panel2:#171d31;--line:#29314a;--text:#f5f7ff;--muted:#a5aec7;--accent:#ff9b35;--accentText:#1b1005;--danger:#ff8585}
+body{background:radial-gradient(ellipse at 15% 0%,#22245a 0,transparent 42%),radial-gradient(ellipse at 90% 30%,#4b1c4d55 0,transparent 36%),var(--bg)}
+.logo{background:linear-gradient(135deg,#ff9c35,#f44e83 48%,#6557ff);color:#fff;box-shadow:0 0 30px #7a55ff45}.brand strong{letter-spacing:-.7px}.primary{background:linear-gradient(100deg,#ffad43,#ff743e);border-color:#ff9b35;color:#201004}.progress span{background:linear-gradient(90deg,#ff9b35,#ff4c83,#695cff)}
+.lastic-splash{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 38%,#20265a 0,transparent 42%),#070914;transition:opacity .55s ease,visibility .55s ease}.lastic-splash.out{opacity:0;visibility:hidden;pointer-events:none}.splash-inner{text-align:center;padding:24px;animation:splashRise .8s ease both}.lastic-mark{width:86px;height:86px;border-radius:27px;margin:0 auto 22px;display:grid;place-items:center;background:linear-gradient(135deg,#ffb03f,#ff4f83 48%,#645bff);box-shadow:0 0 70px #665aff55;font-size:43px;font-weight:950;font-style:italic;color:white;letter-spacing:-6px;padding-right:5px}.splash-inner h1{font-size:clamp(28px,5vw,40px);line-height:1.05;letter-spacing:-1.5px;margin:0}.splash-inner h1 span{background:linear-gradient(90deg,#fff,#b8b9ff,#ff9b53);background-clip:text;color:transparent}.splash-inner p{color:#aab2d0;margin:12px 0 25px}.loader-track{width:190px;height:4px;background:#272b44;border-radius:9px;margin:auto;overflow:hidden}.loader-track i{display:block;height:100%;width:40%;background:linear-gradient(90deg,#ff9b35,#ff4f83,#655bff);border-radius:9px;animation:loadSweep 1.15s ease-in-out infinite alternate}.splash-caption{font-size:11px;color:#777f9f;margin-top:12px;letter-spacing:1.5px;text-transform:uppercase}.launch-screen{position:fixed;inset:0;z-index:900;overflow:auto;background:radial-gradient(ellipse at 82% 35%,#40235a66,transparent 38%),radial-gradient(ellipse at 5% 80%,#123b7955,transparent 40%),#080a13;display:none;color:#f5f7ff}.launch-screen.show{display:block;animation:fadeIn .45s ease}.launch-nav{height:78px;max-width:1160px;margin:auto;padding:0 25px;display:flex;align-items:center;justify-content:space-between;gap:15px}.launch-brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:16px}.launch-brand .lastic-mark{width:42px;height:42px;border-radius:14px;font-size:24px;margin:0;letter-spacing:-4px}.launch-nav-links{display:flex;align-items:center;gap:22px;color:#c5cbe0;font-size:13px}.launch-nav-links a{color:inherit;text-decoration:none}.launch-content{max-width:1160px;margin:0 auto;padding:clamp(42px,8vh,90px) 25px 35px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;min-height:calc(100vh - 160px)}.launch-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid #45406b;background:#191a35a8;border-radius:99px;padding:7px 12px;font-size:11px;color:#d9d8ff;letter-spacing:.7px;text-transform:uppercase}.launch-kicker i{width:7px;height:7px;border-radius:50%;background:#78f0c0;box-shadow:0 0 12px #78f0c0}.launch-copy h2{font-size:clamp(42px,6vw,72px);line-height:.99;letter-spacing:-3.5px;margin:24px 0 20px;max-width:650px}.launch-copy h2 span{background:linear-gradient(100deg,#fff 0%,#b6b2ff 40%,#ff9d45 90%);background-clip:text;color:transparent}.launch-copy>p{font-size:17px;line-height:1.7;color:#aeb6d0;max-width:520px}.launch-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 23px}.launch-actions button{padding:13px 19px;border-radius:13px}.launch-actions .secondary{background:#13182b;border-color:#343c59}.trust-row{display:flex;gap:18px;flex-wrap:wrap;color:#b9c2dc;font-size:12px}.trust-row span{display:flex;align-items:center;gap:7px}.trust-row b{color:#ffb15c}.launch-visual{position:relative;min-height:410px;display:grid;place-items:center}.orb{position:absolute;width:min(32vw,360px);aspect-ratio:1;border-radius:50%;background:conic-gradient(from 20deg,#ff9b35,#ff4d83,#645cff,#167cff,#ff9b35);filter:blur(1px);opacity:.82;box-shadow:0 0 80px #5d51ff55;animation:orbSpin 18s linear infinite}.orb:after{content:"";position:absolute;inset:3px;border-radius:50%;background:#0a0d1c}.demo-device{position:relative;width:min(82%,330px);border:1px solid #555d83;border-radius:27px;background:linear-gradient(155deg,#202944,#0b1020 65%);padding:19px;box-shadow:0 28px 100px #0009,0 0 50px #655bff24;transform:rotate(-4deg)}.device-top{display:flex;align-items:center;gap:9px;font-weight:750;font-size:13px;padding-bottom:17px;border-bottom:1px solid #333b58}.device-top .mini-mark{background:linear-gradient(135deg,#ff9b35,#ff4e85,#655bff);border-radius:9px;width:29px;height:29px;display:grid;place-items:center}.demo-chat{padding:22px 0 13px;display:grid;gap:12px}.demo-bubble{border:1px solid #333c5b;background:#161e35;padding:12px;border-radius:13px;font-size:12px;color:#dfe5ff;max-width:94%}.demo-bubble.user{justify-self:end;background:linear-gradient(120deg,#273b80,#4b3c92);border-color:#4e5bb0}.demo-status{display:flex;gap:7px;align-items:center;color:#8ff0c6;font-size:11px;padding:12px 0 3px}.demo-status i{width:6px;height:6px;background:#76e8b4;border-radius:50%}.feature-grid{max-width:1160px;margin:0 auto;padding:20px 25px 55px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.feature-card{border:1px solid #252d48;background:#101528b8;border-radius:17px;padding:19px}.feature-icon{font-size:21px;margin-bottom:14px}.feature-card strong{display:block;font-size:14px;margin-bottom:7px}.feature-card p{margin:0;color:#9da8c5;font-size:12px;line-height:1.6}.launch-footer{max-width:1160px;margin:auto;border-top:1px solid #252a40;padding:18px 25px 24px;color:#7f89a8;font-size:11px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.launch-footer strong{color:#d5daf0}.privacy-detail{color:#818baa;font-size:11px;line-height:1.6;max-width:600px;margin-top:17px}
+@keyframes loadSweep{from{transform:translateX(-110%)}to{transform:translateX(250%)}}@keyframes splashRise{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes orbSpin{to{transform:rotate(360deg)}}
+@media(max-width:760px){.launch-nav{height:66px;padding:0 17px}.launch-nav-links{display:none}.launch-content{grid-template-columns:1fr;gap:18px;padding:45px 20px 25px;min-height:unset}.launch-copy h2{font-size:clamp(42px,12vw,62px);letter-spacing:-2.5px}.launch-copy>p{font-size:15px}.launch-visual{min-height:300px;grid-row:1}.orb{width:245px}.demo-device{width:min(78%,290px)}.feature-grid{grid-template-columns:repeat(2,1fr);padding:20px}.feature-card{padding:15px}.launch-footer{padding:18px 20px}.launch-actions button{flex:1}.trust-row{gap:11px}}
+@media(prefers-reduced-motion:reduce){.orb,.loader-track i{animation:none!important}}
+
+
+.gguf-panel{border:1px solid #3b3159;background:linear-gradient(145deg,#17152b,#101424);border-radius:16px;padding:16px;margin:14px 0}
+.gguf-panel h3{margin:0 0 6px;font-size:15px}.gguf-panel p{color:var(--muted);font-size:12px;margin:6px 0 12px}
+.gguf-drop{border:1px dashed #6557a7;border-radius:13px;padding:20px 12px;text-align:center;background:#0d1020;cursor:pointer}
+.gguf-drop strong{display:block;margin:4px 0}.gguf-drop small{display:block;color:var(--muted);font-size:11px}
+.gguf-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.gguf-stat{background:#0d1020;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;color:var(--muted)}
+.gguf-stat strong{display:block;color:var(--text);font-size:13px;margin-top:3px;overflow-wrap:anywhere}
+.gguf-warning{font-size:11px;color:#ffca8a;line-height:1.55;margin-top:12px}
+.gguf-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:600px){.gguf-meta{grid-template-columns:1fr 1fr}.gguf-panel{padding:12px}}
+
+</style>
+</head>
+<body>
+<div class="lastic-splash" id="lasticSplash" aria-label="Loading Lastic Productions"><div class="splash-inner"><div class="lastic-mark">LP</div><h1>Lastic <span>Productions</span></h1><p>Your private AI workspace.</p><div class="loader-track"><i></i></div><div class="splash-caption">Free to use · Privacy-first · Local AI</div></div></div>
+<section class="launch-screen" id="launchScreen" aria-label="Lastic Productions welcome page">
+ <nav class="launch-nav"><div class="launch-brand"><div class="lastic-mark">LP</div><span>Lastic<br>Productions</span></div><div class="launch-nav-links"><a href="#lp-home">Home</a><a href="#lp-features">Features</a><a href="#lp-privacy">Privacy</a></div><button class="primary" id="launchNavBtn">Launch workspace ↗</button></nav>
+ <div class="launch-content" id="lp-home"><div class="launch-copy"><div class="launch-kicker"><i></i> Your AI. Your device. Your choice.</div><h2>Meet your AI.<br><span>Keep your privacy.</span></h2><p>A fresh space to chat, explore ideas and experiment with small AI models — designed to run directly on your device, without an AI subscription or API key.</p><div class="launch-actions"><button class="primary" id="launchMainBtn">Open Lastic AI <span aria-hidden="true">→</span></button><button class="secondary" id="launchModelsBtn">Explore models ↓</button></div><div class="trust-row"><span>✦ <b>Free to use</b></span><span>⌁ Local-first</span><span>◈ No API key</span></div><p class="privacy-detail" id="lp-privacy">Privacy promise: when a compatible local model is loaded, your prompts are processed in this browser. Model downloads require internet access, and this prototype does not send chat prompts to an AI API. No software can guarantee zero data leaks on a compromised device or browser.</p></div>
+ <div class="launch-visual" aria-label="Illustration of private AI chat"><div class="orb"></div><div class="demo-device"><div class="device-top"><div class="mini-mark">LP</div><div>Lastic AI <div style="font-size:10px;color:#9ba8c9;font-weight:400">Private workspace</div></div></div><div class="demo-chat"><div class="demo-bubble user">Give me an idea for a creative project.</div><div class="demo-bubble">Absolutely. Let's build something useful, original, and entirely yours. ✨</div><div class="demo-bubble" style="color:#aab6d8">Your conversation stays local while the local model is running.</div></div><div class="demo-status"><i></i> Local inference · No API key</div></div></div></div>
+ <div class="feature-grid" id="lp-features"><article class="feature-card"><div class="feature-icon">✦</div><strong>Free to use</strong><p>No paid AI API or subscription required for local inference. Your device does the work.</p></article><article class="feature-card"><div class="feature-icon">◈</div><strong>Privacy-first</strong><p>Chat prompts stay in the browser when using the built-in local runtime. Downloads come from model hosts.</p></article><article class="feature-card"><div class="feature-icon">⌁</div><strong>Offline-ready</strong><p>After a model and required app files are cached, supported sessions can run without internet.</p></article><article class="feature-card"><div class="feature-icon">▣</div><strong>Your model library</strong><p>Explore compact browser-compatible models, and inspect a GGUF file from your device.</p></article></div>
+ <footer class="launch-footer"><span><strong>© Lastic Productions</strong> · Local AI. Real freedom.</span><span>Free to use · Built for privacy · Device performance varies</span></footer>
+</section>
+<div class="app" id="appWorkspace">
+<aside>
+  <div class="brand"><div class="logo">LP</div><div><strong>Lastic Productions</strong><small>PRIVATE AI STUDIO</small></div></div>
+  <div class="side-label">MODEL RUNTIME</div>
+  <section class="model-card">
+    <label for="modelSelect">Choose a small model</label>
+    <select id="modelSelect">
+      <option value="onnx-community/Qwen2.5-0.5B-Instruct">Qwen 2.5 · 0.5B Instruct</option>
+      <option value="onnx-community/SmolLM2-360M-Instruct">SmolLM2 · 360M Instruct</option>
+      <option value="onnx-community/TinyLlama-1.1B-Chat-v1.0">TinyLlama · 1.1B Chat</option>
+    </select>
+    <div class="status-line"><span id="statusDot" class="dot"></span><span id="statusText">Model not loaded</span></div>
+    <div class="progress"><span id="progressBar"></span></div>
+    <div id="progressText" class="model-info">The model downloads once, then browser caching can reuse it.</div>
+    <button id="loadBtn" class="primary">Load selected model</button>
+    <button id="openLibraryBtn">＋ Browse model library</button>
+    <button id="localModelBtn">↥ Choose a local GGUF model</button>
+    <input id="localModelInput" type="file" hidden accept=".gguf,application/octet-stream">
+    <button id="unloadBtn" class="quiet">Unload from memory</button>
+    <div id="localModelStatus" class="model-info">No local GGUF selected.</div>
+  </section>
+  <div class="side-label">MODEL LIBRARY</div>
+  <div class="model-card" id="libraryMini">
+    <div class="model-info">Pick a model by task and estimated download size.</div>
+    <button id="openLibraryBtn2">Browse models & sizes →</button>
+  </div>
+  <div class="side-label">WORKSPACE</div>
+  <div class="side-actions">
+    <button id="newChatBtn">＋ &nbsp; New conversation</button>
+    <button id="exportBtn">↗ &nbsp; Export conversation</button>
+    <button id="clearCacheBtn">⌫ &nbsp; Clear cached model files</button>
+  </div>
+  <div class="privacy"><strong>◈ Local-first by design</strong>Prompts run in this tab after the model is loaded. Model files are fetched from Hugging Face on first load and cached by the browser. No account or API key is required.</div>
+</aside>
+<main>
+  <header class="topbar"><h1>Lastic Productions <span style="color:var(--muted);font-weight:400">/ Local AI workspace</span></h1><div class="top-actions"><span class="pill" id="runtimePill">WASM / CPU</span><span class="pill">No API key</span><button id="settingsBtn" class="quiet">Settings</button></div></header>
+  <section class="workspace">
+    <div id="welcome" class="welcome">
+      <div class="spark">✳</div><h2>A little AI.<br><em>Entirely yours.</em></h2>
+      <p>Run a compact language model in your browser. Start with a prompt, keep your data on your device, and experiment without an API key.</p>
+      <div class="chips"><button data-prompt="Explain WebAssembly like I'm a beginner.">Explain WebAssembly</button><button data-prompt="Write a simple HTML, CSS and JavaScript counter app.">Build a tiny app</button><button data-prompt="Give me five creative project ideas that can run offline.">Brainstorm ideas</button></div>
+    </div>
+    <div id="messages" class="messages" aria-live="polite"></div>
+    <div class="composer-wrap">
+      <div id="attachedFiles"></div>
+      <div class="composer"><textarea id="promptInput" placeholder="Message your local model…" rows="2"></textarea><div class="composer-bottom"><div class="compose-tools"><button id="attachBtn" title="Attach a text file">＋ Attach</button><input id="fileInput" type="file" accept=".txt,.md,.csv,.json,.html,.css,.js,.py,.xml" multiple hidden><button id="stopBtn" disabled>Stop</button><span id="tokenInfo" class="tiny">Ready when you are</span></div><button id="sendBtn" class="primary send">Send ↑</button></div></div>
+      <div class="notice">Small local models can make mistakes. Keep this tab open while generating.</div>
+    </div>
+  </section>
+</main>
+</div>
+<div class="modal-backdrop" id="ggufModal" role="dialog" aria-modal="true" aria-labelledby="ggufTitle">
+  <div class="modal">
+    <h2 id="ggufTitle">Use a GGUF model from your PC</h2>
+    <p>Choose a local <strong>.gguf</strong> file. The browser can inspect the file without uploading it.</p>
+    <div class="gguf-panel">
+      <div class="gguf-drop" id="ggufDrop">
+        <div style="font-size:26px">📦</div>
+        <strong id="ggufFileName">Choose a GGUF file</strong>
+        <small id="ggufFileHint">Click to browse your computer · GGUF format</small>
+      </div>
+      <input id="ggufPicker" type="file" accept=".gguf,application/octet-stream" hidden>
+      <div class="gguf-meta">
+        <div class="gguf-stat">File size<strong id="ggufSize">Not selected</strong></div>
+        <div class="gguf-stat">Format<strong id="ggufFormat">GGUF</strong></div>
+        <div class="gguf-stat">Device memory<strong id="ggufMemory">Unknown</strong></div>
+        <div class="gguf-stat">File handling<strong>Local only</strong></div>
+      </div>
+      <div class="gguf-warning" id="ggufWarning">Important: selecting a GGUF file is not the same as running it. This web app currently uses Transformers.js for ONNX models; GGUF requires a compatible llama.cpp/WebAssembly runtime, which is not yet bundled in this build. The file is not uploaded or sent anywhere.</div>
+      <div class="gguf-actions">
+        <button class="primary" id="ggufInspectBtn">Select GGUF file</button>
+        <button id="ggufClearBtn">Clear selection</button>
+      </div>
+    </div>
+    <div class="small-note">For best results, use a quantized GGUF model sized for your available RAM. Large files can use several times their file size in working memory.</div>
+    <div class="modal-actions"><button id="ggufCloseBtn">Close</button></div>
+  </div>
+</div>
+<div class="modal-backdrop" id="libraryModal" role="dialog" aria-modal="true" aria-labelledby="libraryTitle">
+ <div class="modal"><h2 id="libraryTitle">Model library</h2><p>Choose a compact model by task and estimated download size. Download sizes are approximate and depend on the model files and quantization served by the repository.</p>
+  <div id="modelCatalog" class="catalog"></div>
+  <div class="field"><label class="field-label" for="customModelId">Add a Hugging Face model ID</label><input id="customModelId" placeholder="organization/model-repository"><div class="small-note">Use a public repository compatible with Transformers.js text-generation and containing browser-ready ONNX weights. Large or unsupported repositories may fail.</div></div>
+  <div class="modal-actions"><button id="closeLibrary">Close</button><button id="addCustomModel" class="primary">Add model ID</button></div>
+ </div>
+</div>
+<div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+ <div class="modal"><h2 id="settingsTitle">Runtime settings</h2><p>Adjust how the model runs in this browser.</p>
+  <div class="field"><label class="field-label" for="backendSelect">Inference backend</label><select id="backendSelect"><option value="wasm">WebAssembly (CPU) — widest support</option><option value="webgpu">WebGPU — faster on supported devices</option></select><div class="small-note">WebGPU support depends on your browser and graphics hardware. If it fails, switch back to WASM.</div></div>
+  <div class="field"><label class="field-label" for="maxTokens">Maximum new tokens</label><select id="maxTokens"><option value="128">128 — faster</option><option value="256" selected>256 — balanced</option><option value="512">512 — longer answers, more memory</option></select></div>
+  <div class="field"><label class="field-label" for="temperature">Temperature: <span id="tempValue">0.7</span></label><input id="temperature" type="range" min="0" max="1.4" value="0.7" step="0.1"></div>
+  <p class="small-note">Model weights are large binary files, so this app uses the browser's persistent cache rather than localStorage (which is too small for model weights). Browser storage can be cleared by your browser or operating system.</p>
+  <div class="modal-actions"><button id="closeSettings">Cancel</button><button id="saveSettings" class="primary">Save settings</button></div>
+ </div>
+</div>
+<script type="module">
+const $ = id => document.getElementById(id);
+let generator = null, loading = false, generating = false, stopRequested = false, currentController = null;
+let messages = [], attachments = [], maxNewTokens = 256, temperature = 0.7, backend = 'wasm';
+let activeModel = $('modelSelect').value;
+const MODEL_CATALOG = [
+ {id:'onnx-community/Qwen2.5-0.5B-Instruct',name:'Qwen 2.5 0.5B Instruct',task:'Chat · general questions · light coding',size:'~350–500 MB',memory:'~1–2 GB RAM recommended',desc:'Good first model for a modest laptop; compact instruction-following model.'},
+ {id:'onnx-community/SmolLM2-360M-Instruct',name:'SmolLM2 360M Instruct',task:'Chat · summaries · simple writing',size:'~200–350 MB',memory:'~1 GB+ RAM recommended',desc:'Smallest option in this starter catalog; faster to download, less capable.'},
+ {id:'onnx-community/TinyLlama-1.1B-Chat-v1.0',name:'TinyLlama 1.1B Chat',task:'Chat · short answers · basic reasoning',size:'~600–900 MB',memory:'~2–4 GB RAM recommended',desc:'Larger model with higher memory needs; may be slower on CPU.'},
+ {id:'onnx-community/Phi-3.5-mini-instruct-onnx-web',name:'Phi 3.5 Mini Instruct',task:'Chat · reasoning · coding assistance',size:'~2–3 GB',memory:'~6 GB+ RAM recommended',desc:'More capable but much heavier; availability of browser-ready weights can vary.'}
+];
+let customModels = [];
+let localImportedFiles = [];
+const setStatus = (text, type='') => { $('statusText').textContent=text; $('statusDot').className='dot '+type; };
+const progress = (p, text) => { $('progressBar').style.width=Math.max(0,Math.min(100,p||0))+'%'; $('progressText').textContent=text||''; };
+function addMessage(role, content, extra={}) {
+  messages.push({role,content,...extra});
+  $('welcome').classList.add('hidden');
+  renderMessage(role,content,extra);
+}
+function renderMessage(role, content, extra={}) {
+  const wrap=document.createElement('div'); wrap.className='message '+role;
+  const avatar=document.createElement('div'); avatar.className='avatar'; avatar.textContent=role==='user'?'YOU':'LM';
+  const bubble=document.createElement('div'); bubble.className='bubble';
+  const p=document.createElement('p'); p.textContent=content; bubble.appendChild(p);
+  if(extra.pending){p.className='typing';p.textContent='Thinking'}
+  wrap.append(avatar,bubble); $('messages').appendChild(wrap); $('messages').scrollTop=$('messages').scrollHeight;
+  return {wrap,bubble,p};
+}
+function setGenerating(on) {
+  generating=on; $('sendBtn').disabled=on; $('stopBtn').disabled=!on; $('loadBtn').disabled=loading||on;
+  $('tokenInfo').textContent=on?'Generating…':'Ready when you are';
+}
+async function loadTransformers() {
+  // Dynamically load the browser build from a CDN. The package stores fetched model assets in browser cache.
+  return await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.2');
+}
+async function loadModel(modelOverride=null) {
+  if(loading) return;
+  if(modelOverride){$('modelSelect').value=modelOverride;}
+  if(localImportedFiles.length && activeModel.startsWith('local-import:')){
+    addMessage('error','The selected local files have been imported into this page, but a raw ONNX file or arbitrary folder cannot automatically be used as a Transformers.js model. A compatible bundle needs model config, tokenizer files, and the exact ONNX layout supported by the runtime. Choose a browser-ready model from the library for inference.');
+    return;
+  }
+  if(generator && activeModel===$('modelSelect').value && backend===$('backendSelect').value) { setStatus('Model ready','good'); return; }
+  loading=true; $('loadBtn').disabled=true; setStatus('Loading runtime'); progress(2,'Preparing Transformers.js…');
+  try {
+    if(generator){generator=null;}
+    const { pipeline, env } = await loadTransformers();
+    env.allowLocalModels = false;
+    env.useBrowserCache = true;
+    env.useFS = false;
+    env.backends.onnx.wasm.numThreads = Math.max(1, Math.min(4, (navigator.hardwareConcurrency||2)-1));
+    activeModel=$('modelSelect').value; backend=$('backendSelect').value;
+    const device=backend==='webgpu'?'webgpu':'wasm';
+    const catalogItem=[...MODEL_CATALOG,...customModels.map(id=>({id,name:id,task:'Custom Hugging Face model',size:'Varies',memory:'Varies',desc:'User-added repository'}))].find(m=>m.id===activeModel);
+    if(catalogItem) progress(2,`Preparing ${catalogItem.name} · estimated download ${catalogItem.size}…`);
+    generator = await pipeline('text-generation', activeModel, {
+      device,
+      progress_callback: info => {
+        if(info.status==='progress') progress(info.progress||0, `${info.file||'Model file'} · ${Math.round(info.progress||0)}%`);
+        else if(info.status==='download') progress(3,`Downloading ${info.file||'model files'}…`);
+        else if(info.status==='initiate') progress(1,`Preparing ${info.file||'model files'}…`);
+        else if(info.status==='done') progress(100,`Cached ${info.file||'file'} ✓`);
+        else progress(5,info.status||'Loading model…');
+      }
+    });
+    setStatus('Model ready','good'); progress(100,`${activeModel.split('/').pop()} loaded. Cached assets may be reused next time.`);
+    $('runtimePill').textContent=backend.toUpperCase()+(backend==='wasm'?' / CPU':' / GPU');
+  } catch(err) {
+    generator=null; setStatus('Could not load model','bad'); progress(0,'Load failed. Check your connection, storage space, and browser console.');
+    addMessage('error','Model load failed: '+(err?.message||String(err))+'\n\nTry the WASM backend, choose a different model, or reload the page. The first download requires an internet connection.');
+  } finally { loading=false; $('loadBtn').disabled=false; }
+}
+async function sendPrompt(text) {
+  text=text.trim(); if(!text||generating) return;
+  if(!generator){addMessage('error','Load a model first using “Load model” in the sidebar (or Settings on mobile).');return;}
+  const userText=text+(attachments.length?'\n\nAttached text files:\n'+attachments.map(a=>`--- ${a.name} ---\n${a.content}`).join('\n\n'):'');
+  attachments=[]; renderAttachments();
+  addMessage('user',userText); $('promptInput').value=''; setGenerating(true); stopRequested=false;
+  const reply=renderMessage('assistant','',{pending:true}); let output='';
+  try {
+    const prompt = messages.filter(m=>m.role==='user'||m.role==='assistant').slice(-8).map(m=>`${m.role==='user'?'User':'Assistant'}: ${m.content}`).join('\n')+'\nAssistant:';
+    currentController={stop:false};
+    // Text-generation pipeline returns the generated sequence; stopping is checked between requests.
+    const result=await generator(prompt,{max_new_tokens:maxNewTokens,temperature,do_sample:temperature>0,return_full_text:false});
+    if(stopRequested){reply.p.textContent='Generation stopped. This runtime may finish the current inference before stopping.';return;}
+    output=Array.isArray(result)?(result[0]?.generated_text??''):String(result);
+    output=output.trim()||'(The model returned an empty response. Try a different prompt or model.)';
+    reply.p.className=''; reply.p.textContent=output;
+    messages.push({role:'assistant',content:output});
+    $('tokenInfo').textContent='Response complete'; 
+  } catch(err) {
+    reply.wrap.classList.add('error');reply.p.className='';reply.p.textContent='Generation error: '+(err?.message||String(err))+'\n\nTry a shorter prompt, lower token limit, or another model.';
+  } finally {currentController=null;setGenerating(false);$('messages').scrollTop=$('messages').scrollHeight;}
+}
+function renderAttachments(){const box=$('attachedFiles');box.replaceChildren();attachments.forEach((a,i)=>{const chip=document.createElement('span');chip.className='file-chip';chip.append(document.createTextNode(a.name+' '));const b=document.createElement('button');b.textContent='×';b.title='Remove file';b.onclick=()=>{attachments.splice(i,1);renderAttachments()};chip.appendChild(b);box.appendChild(chip);});}
+
+// Local GGUF picker: reads metadata only; no upload or network request is made.
+// Inference requires a llama.cpp/WebAssembly runtime, which is not bundled in this Transformers.js build.
+let selectedGGUF = null;
+const formatBytes = n => {
+  if (!Number.isFinite(n) || n < 0) return 'Unknown';
+  const units = ['B','KB','MB','GB','TB']; let i=0, v=n;
+  while(v >= 1024 && i < units.length-1){v/=1024;i++;}
+  return `${v.toFixed(i===0?0:2)} ${units[i]}`;
+};
+function openGGUFModal(){ $('ggufModal').classList.add('open'); }
+function closeGGUFModal(){ $('ggufModal').classList.remove('open'); }
+function resetGGUF(){
+  selectedGGUF=null; $('ggufPicker').value='';
+  $('ggufFileName').textContent='Choose a GGUF file';
+  $('ggufFileHint').textContent='Click to browse your computer · GGUF format';
+  $('ggufSize').textContent='Not selected';
+  $('ggufMemory').textContent='Unknown';
+  $('localModelStatus').textContent='No local GGUF selected.';
+  $('ggufWarning').textContent='Important: selecting a GGUF file is not the same as running it. This web app currently uses Transformers.js for ONNX models; GGUF requires a compatible llama.cpp/WebAssembly runtime, which is not yet bundled in this build. The file is not uploaded or sent anywhere.';
+}
+function handleGGUF(file){
+  if(!file) return;
+  if(!file.name.toLowerCase().endsWith('.gguf')){
+    $('ggufWarning').textContent='That file does not have a .gguf extension. Please choose a GGUF model file.';
+    return;
+  }
+  selectedGGUF=file;
+  $('ggufFileName').textContent=file.name;
+  $('ggufFileHint').textContent='Selected from your device — not uploaded';
+  $('ggufSize').textContent=formatBytes(file.size);
+  const estimate = file.size * 1.6;
+  $('ggufMemory').textContent=`~${formatBytes(estimate)}+ RAM`;
+  $('localModelStatus').textContent=`Selected: ${file.name} (${formatBytes(file.size)}). GGUF runtime is required to run it.`;
+  $('ggufWarning').textContent=`Selected locally: ${file.name}. The file has not been uploaded. This build cannot run GGUF yet because its inference engine is Transformers.js/ONNX; adding a llama.cpp-compatible WebAssembly engine is the next required step. Estimated working memory can be at least ${formatBytes(estimate)}, often more.`;
+}
+$('localModelBtn').addEventListener('click',openGGUFModal);
+$('ggufDrop').addEventListener('click',()=>$('ggufPicker').click());
+$('ggufInspectBtn').addEventListener('click',()=>$('ggufPicker').click());
+$('ggufPicker').addEventListener('change',e=>handleGGUF(e.target.files && e.target.files[0]));
+$('ggufCloseBtn').addEventListener('click',closeGGUFModal);
+$('ggufClearBtn').addEventListener('click',resetGGUF);
+$('ggufModal').addEventListener('click',e=>{if(e.target===$('ggufModal'))closeGGUFModal();});
+$('localModelInput').addEventListener('change',e=>handleGGUF(e.target.files && e.target.files[0]));
+
+$('loadBtn').addEventListener('click',()=>loadModel());
+function renderCatalog(){
+ const box=$('modelCatalog');box.replaceChildren();
+ [...MODEL_CATALOG,...customModels.map(id=>({id,name:id,task:'Custom Hugging Face model',size:'Varies',memory:'Varies',desc:'User-added repository.'}))].forEach(m=>{
+  const card=document.createElement('div');card.className='model-option';
+  const left=document.createElement('div');left.className='left';
+  const title=document.createElement('strong');title.textContent=m.name;
+  const meta=document.createElement('div');meta.className='meta';meta.textContent=`Task: ${m.task} · Download: ${m.size}`;
+  const desc=document.createElement('div');desc.className='desc';desc.textContent=`${m.desc} ${m.memory}`;
+  left.append(title,meta,desc);
+  const btn=document.createElement('button');btn.className='primary';btn.textContent='Download & load';btn.addEventListener('click',()=>{if(![...$('modelSelect').options].some(o=>o.value===m.id)){const opt=document.createElement('option');opt.value=m.id;opt.textContent=m.name;$('modelSelect').appendChild(opt);} $('modelSelect').value=m.id;$('libraryModal').classList.remove('open');loadModel(m.id);});
+  card.append(left,btn);box.appendChild(card);
+ });
+}
+function openLibrary(){$('libraryModal').classList.add('open');renderCatalog();}
+$('openLibraryBtn').addEventListener('click',openLibrary);$('openLibraryBtn2').addEventListener('click',openLibrary);
+$('closeLibrary').addEventListener('click',()=>$('libraryModal').classList.remove('open'));
+$('libraryModal').addEventListener('click',e=>{if(e.target===$('libraryModal'))$('libraryModal').classList.remove('open')});
+$('addCustomModel').addEventListener('click',()=>{const id=$('customModelId').value.trim();if(!id||!id.includes('/')){alert('Enter a public Hugging Face repository ID in organization/model format.');return;}if(!customModels.includes(id))customModels.push(id);if(![...$('modelSelect').options].some(o=>o.value===id)){const opt=document.createElement('option');opt.value=id;opt.textContent=id;$('modelSelect').appendChild(opt);} $('modelSelect').value=id;$('customModelId').value='';renderCatalog();});
+$('localModelBtn').addEventListener('click',()=>{$('localModelInput').click()});
+$('localModelInput').addEventListener('change',e=>{const files=[...e.target.files];if(!files.length)return;const names=files.map(f=>f.webkitRelativePath||f.name);const hasOnnx=files.some(f=>f.name.toLowerCase().endsWith('.onnx'));const hasConfig=files.some(f=>f.name==='config.json');const hasTokenizer=files.some(f=>/tokenizer\.json|tokenizer_config\.json|vocab\.json|tokenizer\.model/.test(f.name));localImportedFiles=files;const total=files.reduce((n,f)=>n+f.size,0);$('localModelStatus').textContent=`Selected ${files.length} file(s) · ${(total/1024/1024).toFixed(1)} MB. ONNX: ${hasOnnx?'yes':'missing'} · config: ${hasConfig?'yes':'missing'} · tokenizer: ${hasTokenizer?'yes':'missing'}.`+(hasOnnx&&hasConfig&&hasTokenizer?' This looks like a bundle, but browser loading still depends on its exact model layout.':' Choose the complete model folder, including ONNX weights, config and tokenizer files.');if(!hasOnnx||!hasConfig||!hasTokenizer)addMessage('error','The selected folder does not appear to contain a complete Transformers.js model bundle. Please select the model directory, not just one weight file.');else addMessage('assistant',`Local model bundle selected: ${files.length} files (${(total/1024/1024).toFixed(1)} MB). For safety, this prototype only inspects the files; it does not yet wire arbitrary local bundles into the inference runtime. Use the Model Library to download and run supported browser-ready models.`);e.target.value='';});
+$('unloadBtn').addEventListener('click',()=>{generator=null;setStatus('Unloaded');progress(0,'Model removed from active memory. Cached files remain available.');});
+$('sendBtn').addEventListener('click',()=>sendPrompt($('promptInput').value));
+$('promptInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendPrompt($('promptInput').value)}});
+$('stopBtn').addEventListener('click',()=>{stopRequested=true;$('tokenInfo').textContent='Stop requested…';});
+$('newChatBtn').addEventListener('click',()=>{messages=[];$('messages').replaceChildren();$('welcome').classList.remove('hidden');$('tokenInfo').textContent='New conversation';});
+$('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({app:'Lastic Productions',model:activeModel,messages},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='localmind-conversation.json';a.click();URL.revokeObjectURL(a.href);});
+$('attachBtn').addEventListener('click',()=>$('fileInput').click());
+$('fileInput').addEventListener('change',async e=>{for(const f of e.target.files){if(f.size>500000) {addMessage('error',`${f.name} is larger than 500 KB; please attach a smaller text file.`);continue;}attachments.push({name:f.name,content:await f.text()});}renderAttachments();e.target.value='';});
+document.querySelectorAll('[data-prompt]').forEach(b=>b.addEventListener('click',()=>{$('promptInput').value=b.dataset.prompt;$('promptInput').focus();}));
+$('settingsBtn').addEventListener('click',()=>{$('settingsModal').classList.add('open');});
+$('closeSettings').addEventListener('click',()=> $('settingsModal').classList.remove('open'));
+$('settingsModal').addEventListener('click',e=>{if(e.target===$('settingsModal'))$('settingsModal').classList.remove('open')});
+$('temperature').addEventListener('input',e=>$('tempValue').textContent=e.target.value);
+$('saveSettings').addEventListener('click',()=>{backend=$('backendSelect').value;maxNewTokens=Number($('maxTokens').value);temperature=Number($('temperature').value);$('runtimePill').textContent=backend.toUpperCase()+(backend==='wasm'?' / CPU':' / GPU');$('settingsModal').classList.remove('open');if(generator){generator=null;setStatus('Reload model to apply settings');progress(0,'Settings saved. Load the model again to apply the backend change.');}});
+$('modelSelect').addEventListener('change',()=>{if(generator){generator=null;setStatus('Model changed');progress(0,'Load the selected model to continue.')}});
+$('clearCacheBtn').addEventListener('click',async()=>{if(!confirm('Clear browser-cached files for this app? This may require downloading model weights again.'))return;try{if(!('caches'in window)){alert('Cache Storage is not available in this browser.');return;}const keys=await caches.keys();let count=0;for(const key of keys){if(/transformers|huggingface|onnx/i.test(key)){await caches.delete(key);count++;}}generator=null;setStatus('Cache cleared');progress(0,`Removed ${count} matching browser cache(s). Some browser-managed model data may be stored elsewhere.`);}catch(e){alert('Could not clear cache: '+e.message)}});
+if(!('gpu'in navigator)){$('runtimePill').textContent='WASM / CPU';}
+
+// Lastic Productions launch flow: animated splash, then branded landing page.
+const splashEl=$('lasticSplash'), launchEl=$('launchScreen'), workspaceEl=$('appWorkspace');
+workspaceEl.style.display='none';
+function enterWorkspace(){launchEl.classList.remove('show');launchEl.style.display='none';workspaceEl.style.display='grid';document.body.style.overflow='';}
+$('launchMainBtn').addEventListener('click',enterWorkspace);
+$('launchNavBtn').addEventListener('click',enterWorkspace);
+$('launchModelsBtn').addEventListener('click',()=>{enterWorkspace();setTimeout(()=>{if(typeof openLibrary==='function')openLibrary();else $('openLibraryBtn').click();},80)});
+setTimeout(()=>{splashEl.classList.add('out');setTimeout(()=>{splashEl.style.display='none';launchEl.classList.add('show');document.body.style.overflow='auto';},560)},1900);
+
+</script>
+</body>
+</html>

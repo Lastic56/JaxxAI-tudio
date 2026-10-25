@@ -1,0 +1,6 @@
+{
+  "name": "Lastic Productions - GGUF Inspector & Local AI Studio",
+  "description": "Private, local-first AI workspace featuring client-side binary GGUF inspection, VRAM hardware offload calculator, curated model library, and in-browser inference.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
